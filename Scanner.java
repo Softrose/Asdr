@@ -11,9 +11,23 @@ public class Scanner {
     private static final Map<String, TipoToken> palabrasReservadas;
     static {
         palabrasReservadas = new HashMap<>();
-        palabrasReservadas.put("select", TipoToken.SELECT);
-        palabrasReservadas.put("from", TipoToken.FROM);
-        palabrasReservadas.put("distinct", TipoToken.DISTINCT);
+        palabrasReservadas.put("FOR", TipoToken.FOR);
+        palabrasReservadas.put("WHILE", TipoToken.WHILE);
+        palabrasReservadas.put("IF", TipoToken.IF);
+        palabrasReservadas.put("RETURN", TipoToken.RETURN);
+        palabrasReservadas.put("SUPER", TipoToken.SUPER);
+        palabrasReservadas.put("FUN", TipoToken.FUN);
+        palabrasReservadas.put("VAR", TipoToken.VAR);
+        palabrasReservadas.put("CLASS", TipoToken.CLASS);
+        palabrasReservadas.put("TRUE", TipoToken.TRUE);
+        palabrasReservadas.put("FALSE", TipoToken.FALSE);
+        palabrasReservadas.put("THIS", TipoToken.THIS);
+        palabrasReservadas.put("NULL", TipoToken.NULL);
+        palabrasReservadas.put("PRINT", TipoToken.PRINT);
+        palabrasReservadas.put("ELSE", TipoToken.ELSE);
+        palabrasReservadas.put("AND", TipoToken.AND);
+        palabrasReservadas.put("OR", TipoToken.OR);
+        palabrasReservadas.put("CALL", TipoToken.CALL);
     }
 
     Scanner(String source){
@@ -31,14 +45,64 @@ public class Scanner {
 
             switch (estado){
                 case 0:
-                    if(caracter == '*'){
-                        tokens.add(new Token(TipoToken.ASTERISCO, "*", i + 1));
+                    if(caracter == '('){
+                        tokens.add(new Token(TipoToken.Open_parent, "(", i + 1));
+                    }
+                    else if(caracter == ')'){
+                        tokens.add(new Token(TipoToken.Close_parent, ")", i + 1));
+                    }
+                    else if(caracter == '{'){
+                        tokens.add(new Token(TipoToken.Open_curly, "{", i + 1));
+                    }
+                    else if(caracter == '}'){
+                        tokens.add(new Token(TipoToken.Close_curly, "}", i + 1));
                     }
                     else if(caracter == ','){
-                        tokens.add(new Token(TipoToken.COMA, ",", i + 1));
+                        tokens.add(new Token(TipoToken.Comma, ",", i + 1));
                     }
-                    else if(caracter == '.'){
-                        tokens.add(new Token(TipoToken.PUNTO, ".", i + 1));
+                    else if(caracter == ';'){
+                        tokens.add(new Token(TipoToken.Dot_comma, ";", i + 1));
+                    }
+                    else if(caracter == '-'){
+                        tokens.add(new Token(TipoToken.Hyphen, "-", i + 1));
+                    }
+                    else if(caracter == '+'){
+                        tokens.add(new Token(TipoToken.Plus, "+", i + 1));
+                    }
+                    else if(caracter == '*'){
+                        tokens.add(new Token(TipoToken.Star, "*", i + 1));
+                    }
+                    else if(caracter == '!'){
+                        if (source.charAt(i+ 1) == '=') {
+                            tokens.add(new Token(TipoToken.Exclamation_equal, "!=", i + 1));
+                            i++;
+                        }else{
+                            tokens.add(new Token(TipoToken.ExclamationMark, "!", i + 1));
+                        }
+                    }
+                    else if(caracter == '='){
+                        if(source.charAt(i+ 1) == '='){
+                            tokens.add(new Token(TipoToken.Equal_equal, "==", i + 1));
+                            i++;
+                        }else{
+                            tokens.add(new Token(TipoToken.Equal, "=", i + 1));
+                        }
+                    }
+                    else if(caracter == '<'){
+                        if(source.charAt(i+ 1) == '='){
+                            tokens.add(new Token(TipoToken.Less_equal, "<=", i + 1));
+                            i++;
+                        }else{
+                            tokens.add(new Token(TipoToken.LessThan, "<", i + 1));
+                        }
+                    }
+                    else if(caracter == '>'){
+                        if(source.charAt(i+ 1) == '='){
+                            tokens.add(new Token(TipoToken.Greather_equal, ">=", i + 1));
+                            i++;
+                        }else{
+                            tokens.add(new Token(TipoToken.LessThan, ">", i + 1));
+                        }
                     }
                     else if(Character.isAlphabetic(caracter)){
                         estado = 1;
