@@ -60,6 +60,9 @@ public class Scanner {
                     else if(caracter == ','){
                         tokens.add(new Token(TipoToken.Comma, ",", i + 1));
                     }
+                    else if(caracter == '.'){
+                        tokens.add(new Token(TipoToken.Dot, ".", i + 1));
+                    }
                     else if(caracter == ';'){
                         tokens.add(new Token(TipoToken.Dot_comma, ";", i + 1));
                     }
@@ -109,6 +112,16 @@ public class Scanner {
                         lexema = lexema + caracter;
                         inicioLexema = i;
                     }
+                    else if (Character.isDigit(caracter)) {
+                        estado = 2;
+                        lexema = lexema + caracter;
+                        inicioLexema = i;
+                    }
+                    else if (caracter == '"') {
+                        estado = 3;
+                        lexema = lexema + caracter;
+                        inicioLexema = i;
+                    }
                     break;
 
                 case 1:
@@ -126,6 +139,28 @@ public class Scanner {
 
                         estado = 0;
                         i--;
+                        lexema = "";
+                        inicioLexema = 0;
+                    }
+                    break;
+                case 2:
+                    if (Character.isDigit(caracter)) {
+                        lexema = lexema + caracter;
+                    } else {
+                        tokens.add(new Token(TipoToken.NUMBER, lexema, inicioLexema + 1));
+                        estado = 0;
+                        i--;
+                        lexema = "";
+                        inicioLexema = 0;
+                    }
+                    break;
+                case 3:
+                    if (caracter != '"') {
+                        lexema = lexema + caracter;
+                    } else {
+                        lexema = lexema + caracter;
+                        tokens.add(new Token(TipoToken.STRING, lexema, inicioLexema + 1));
+                        estado = 0;
                         lexema = "";
                         inicioLexema = 0;
                     }
