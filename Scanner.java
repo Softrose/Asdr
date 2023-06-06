@@ -72,9 +72,26 @@ public class Scanner {
                     else if(caracter == '+'){
                         tokens.add(new Token(TipoToken.Plus, "+", i + 1));
                     }
-                    else if(caracter == '/'){
+                    
+                    /*else if(caracter == '/'){
                         tokens.add(new Token(TipoToken.Slash, "/", i + 1));
+                    }*/
+
+                    // Agrega comentarios de una línea con el símbolo "//"
+                    if (caracter == '/') {
+                        if (source.charAt(i + 1) == '/') {
+                            // Ignora el resto de la línea y pasa al siguiente ciclo
+                            i = source.indexOf('\n', i) - 1;
+                            break;
+                        }
+                        else if (source.charAt(i + 1) == '*') {
+                            // Ignora todos los caracteres hasta encontrar "*/"
+                            i = source.indexOf("*/", i) + 1;
+                            break;
+                        }
                     }
+
+
                     else if(caracter == '*'){
                         tokens.add(new Token(TipoToken.Star, "*", i + 1));
                     }

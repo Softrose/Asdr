@@ -1,3 +1,12 @@
-IF(a<123){
-    PRINT a;
+/*
+Código para calcula la serie de Fibonacci
+*/
+VAR fib = 0;
+VAR lim = 10;
+VAR aux = 1;
+
+FOR(VAR init = 1; init <= lim; init = init + 1){
+    PRINT fib;
+    aux = aux + fib;
+    fib = aux - fib;
 }
