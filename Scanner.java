@@ -72,6 +72,9 @@ public class Scanner {
                     else if(caracter == '+'){
                         tokens.add(new Token(TipoToken.Plus, "+", i + 1));
                     }
+                    else if(caracter == '/'){
+                        tokens.add(new Token(TipoToken.Slash, "/", i + 1));
+                    }
                     else if(caracter == '*'){
                         tokens.add(new Token(TipoToken.Star, "*", i + 1));
                     }

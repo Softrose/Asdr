@@ -1,1 +1,3 @@
-PRINT "HOLA";
+IF(a<123){
+    PRINT a;
+}
