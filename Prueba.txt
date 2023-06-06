@@ -7,6 +7,6 @@ VAR aux = 1;
 
 FOR(VAR init = 1; init <= lim; init = init + 1){
     PRINT fib;
-    aux = aux + fib;
+    aux ;= aux + fib;
     fib = aux - fib;
 }

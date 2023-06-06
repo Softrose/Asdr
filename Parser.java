@@ -61,7 +61,6 @@ public class Parser {
         PROGRAM();
 
         if(!hayErrores && !preanalisis.equals(EOF)){
-            System.out.println(hayErrores);
             System.out.println("Error en la posición " + preanalisis.posicion + ". No se esperaba el token " + preanalisis.tipo);
         }
         else if(!hayErrores && preanalisis.equals(EOF)){
@@ -88,8 +87,6 @@ public class Parser {
          || preanalisis.equals(WHILE) || preanalisis.equals(OPEN_CURLY) || preanalisis.equals(IDENTIFICADOR)){
             STATEMENT();
         }else{
-           // hayErrores = true;
-           // System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba CLASS, FUN, VAR, IF, WHILE PRINT, RETURN, WHILE, IDENTIFICADOR");
         }
     } 
 
@@ -166,17 +163,8 @@ public class Parser {
     void EXPR_STMT(){
         if(hayErrores) return;
 
-       /* if(preanalisis.equals(EXCLAMATIONMARK) || preanalisis.equals(HYPHEN) || preanalisis.equals(NUMBER)
-         || preanalisis.equals(STRING) || preanalisis.equals(TRUE) || preanalisis.equals(FALSE)
-         || preanalisis.equals(NULL) || preanalisis.equals(THIS) || preanalisis.equals(OPEN_PARENT) || preanalisis.equals(IDENTIFICADOR)
-         || preanalisis.equals(SUPER) ){*/
             EXPRESSION();
             coincidir(DOT_COMMA);
-   /*     }else{
-            hayErrores = true;
-            System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba !, -, NUMERO, CADENA, VERDADERO, FALSO," + 
-                "NULO, THIS, (, IDENTIFICADOR, SUPER");
-        }*/
     }
 
     void FOR_STMT(){
@@ -220,10 +208,6 @@ public class Parser {
         if(!preanalisis.equals(CLOSE_PARENT)){
             EXPRESSION();
         }
-       /* else{
-            hayErrores = true;
-            System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba )");
-        }*/
     }
 
     void IF_STMT(){
@@ -330,9 +314,7 @@ public class Parser {
             coincidir(EQUAL);
             EXPRESSION();
          }else{
-           // hayErrores = true;
-           // System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba =");
-        }
+         }
     }
 
     void LOGIC_OR(){
@@ -350,9 +332,7 @@ public class Parser {
             LOGIC_AND();
             LOGIC_OR_2();
          }else{
-            //hayErrores = true;
-            //System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba OR");
-        }
+         }
     }
 
     void LOGIC_AND(){
@@ -370,9 +350,7 @@ public class Parser {
             EQUALITY();
             LOGIC_AND_2();
          }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba AND");
-        }
+         }
     }
 
     void EQUALITY(){
@@ -390,8 +368,6 @@ public class Parser {
             COMPARISON();
             EQUALITY_2();
          }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba !=, ==");
         }
     }
 
@@ -411,8 +387,6 @@ public class Parser {
             TERM();
             COMPARISON_2();
          }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba <, <=, >, >=");
         }
     }
 
@@ -431,8 +405,6 @@ public class Parser {
             FACTOR();
             TERM_2();
          }else{
-         //   hayErrores = true;
-         //   System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba +, -");
         }
     }
 
@@ -451,8 +423,6 @@ public class Parser {
             UNARY();
             FACTOR_2();
          }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba *, /");
         }
     }
 
@@ -462,12 +432,8 @@ public class Parser {
         if(preanalisis.equals(EXCLAMATIONMARK) || preanalisis.equals(HYPHEN)){
             coincidir(preanalisis);
             UNARY();
-       // }else if(preanalisis.equals(CALL)){
-         //   CALL();
          }else{
             CALL();
-           // hayErrores = true;
-           // System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba !, -");
         }
     }
 
@@ -491,8 +457,6 @@ public class Parser {
             coincidir(IDENTIFICADOR);
             CALL_2();
         }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba (, .");
         }
     }
 
@@ -546,8 +510,6 @@ public class Parser {
             FUNCTION();
             FUNCTIONS();
         }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba IDENTIFICADOR.");
         }
     }
 
@@ -557,8 +519,6 @@ public class Parser {
         if(preanalisis.equals(IDENTIFICADOR)){
             PARAMETERS();
         }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba IDENTIFICADOR");
         }
     }
 
@@ -577,8 +537,6 @@ public class Parser {
             coincidir(IDENTIFICADOR);
             PARAMETERS_2();
         }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba ,");
         }
     }
 
@@ -589,9 +547,6 @@ public class Parser {
             || preanalisis.equals(NUMBER) || preanalisis.equals(STRING) || preanalisis.equals(OPEN_PARENT) || preanalisis.equals(SUPER)){
             ARGUMENTS();
         }else{
-           // hayErrores = true;
-           // System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba IDENTIFICADOR, VERDADERO, FALSO, NULO, NUMERO, " +
-           //     "CADENA, (, SUPER");
         }
     }
 
@@ -610,8 +565,6 @@ public class Parser {
             EXPRESSION();
             ARGUMENTS_2();
         }else{
-          //  hayErrores = true;
-          //  System.out.println("Error en la posición " + preanalisis.posicion + ". Se esperaba ,");
         }
     }
 
